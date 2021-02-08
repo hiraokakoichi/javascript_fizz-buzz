@@ -5,7 +5,13 @@ function doFizzbuzz() {
     var buzz = document.getElementById("buzz_num").value;
 
     // ノードを追加するdiv要素(id=append_area)を取得
-    var append_area = document.getElementById("append_area");   
+    var append_area = document.getElementById("append_area");
+
+    // div要素(id=append_area)を初期化
+    var parent = document.getElementById('append_area');
+    while(parent.firstChild){ //子要素がある限りループを回す
+        parent.removeChild(parent.firstChild);
+    }
 
     if(((fizz==null || fizz=='') || (buzz==null || buzz=='')) || (!Number.isInteger(Number(fizz)) || !Number.isInteger( Number(buzz))) ){
         console.log("整数でない");
