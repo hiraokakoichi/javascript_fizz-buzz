@@ -12,7 +12,7 @@ function doFizzbuzz() {
     while(parent.firstChild){ //子要素がある限りループを回す
         parent.removeChild(parent.firstChild);
     }
-
+    // バリデーション
     if(((fizz==null || fizz=='') || (buzz==null || buzz=='')) || (!Number.isInteger(Number(fizz)) || !Number.isInteger( Number(buzz))) ){
         console.log("整数でない");
         console.log(fizz);
@@ -33,42 +33,38 @@ function doFizzbuzz() {
         console.log("整数だ");
         console.log(fizz);
         console.log(buzz);
-        // 2桁まで繰り返し
-        for(var i=1;;i++){
-
-            // 入力された値をi倍する
-            var new_fizz = fizz * i;
-            var new_buzz = buzz * i;
-
-            // i倍された値が3桁を超えたらbreak
-            if(String(new_fizz).length>=3 || String(new_buzz).length>=3){
-                break;
-            }
-
+        // 99桁まで繰り返し
+        for(var i=1; i<100; i++){
             // div要素(id=append_area)にp要素を追加
-            var fizz_elem = document.createElement('p');
-            var buzz_elem = document.createElement('p');
-            append_area.appendChild(fizz_elem);
-            append_area.appendChild(buzz_elem);
+            var p_elem = document.createElement('p');
+            append_area.appendChild(p_elem);
 
-            var fizz_h = "Fizz";
-            var buzz_h = "Buzz";
+            var fizzbuzz_str = "";
 
-            // i倍された値がfizzとbuzzの公倍数であったとき出力する文字列の先頭を"FizzBuzz"にする
-            if(new_fizz%buzz == 0){
-                fizz_h = fizz_h + buzz_h;
+            // iがfizz欄に入力された値の倍数だった場合
+            if( i%fizz==0 && i%buzz==0 ){
+                fizzbuzz_str = "FizzBuzz";
             }
-            if(new_buzz%fizz == 0){
-                buzz_h = fizz_h + buzz_h;
+            else if( i%fizz==0 ){
+                fizzbuzz_str = "Fizz";
+            }
+            else if( i%buzz==0 ){
+                fizzbuzz_str = "Buzz";
+            }
+            else{
+                fizzbuzz_str = false;
             }
 
-            // 追加したp要素に挿入するテキストノードを作成
-            var text_1 = document.createTextNode(fizz_h + " " + String(new_fizz));
-            var text_2 = document.createTextNode(buzz_h + " " + String(new_buzz));
+            // fizzの倍数でもbuzzの倍数でもなければ以下は実行されない
+            if( fizzbuzz_str ){
+                // 追加したp要素に挿入するテキストノードを作成
+                var text_1 = document.createTextNode(fizzbuzz_str + " " + String(i));
 
-            // 追加したp要素に実行結果を挿入
-            fizz_elem.appendChild(text_1);
-            buzz_elem.appendChild(text_2);
+                // 追加したp要素に実行結果を挿入
+                append_area.appendChild(text_1);
+
+            }
+
         }
     }
 }
